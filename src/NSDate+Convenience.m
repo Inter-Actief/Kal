@@ -8,7 +8,7 @@
 
 @implementation NSDate (Convenience)
 
-- (int)year {
+- (NSUInteger)year {
     NSCalendar *gregorian = [[NSCalendar alloc]
             initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [gregorian components:NSYearCalendarUnit fromDate:self];
@@ -16,28 +16,28 @@
 }
 
 
-- (int)month {
+- (NSUInteger)month {
     NSCalendar *gregorian = [[NSCalendar alloc]
             initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [gregorian components:NSMonthCalendarUnit fromDate:self];
     return [components month];
 }
 
-- (int)day {
+- (NSUInteger)day {
     NSCalendar *gregorian = [[NSCalendar alloc]
             initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [gregorian components:NSDayCalendarUnit fromDate:self];
     return [components day];
 }
 
-- (int)hour {
+- (NSUInteger)hour {
     NSCalendar *gregorian = [[NSCalendar alloc]
             initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [gregorian components:NSHourCalendarUnit fromDate:self];
     return [components hour];
 }
 
-- (NSDate *)offsetDay:(int)numDays {
+- (NSDate *)offsetDay:(NSUInteger)numDays {
     NSCalendar *gregorian = [[NSCalendar alloc]
             initWithCalendarIdentifier:NSGregorianCalendar];
 //    [gregorian setFirstWeekday:2]; //monday is first day
@@ -56,7 +56,7 @@
     return [[NSDate dateStartOfDay:self] isEqualToDate:[NSDate dateStartOfDay:[NSDate date]]];
 }
 
-+ (NSDate *)dateForDay:(unsigned int)day month:(unsigned int)month year:(unsigned int)year
++ (NSDate *)dateForDay:(NSUInteger)day month:(NSUInteger)month year:(NSUInteger)year
 {
     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *components = [[NSDateComponents alloc] init];
@@ -122,13 +122,13 @@
     return @"";
 }
 
-+ (int)dayBetweenStartDate:(NSDate *)startDate endDate:(NSDate *)endDate {
++ (NSUInteger)dayBetweenStartDate:(NSDate *)startDate endDate:(NSDate *)endDate {
     NSCalendar *calendar = [[NSCalendar alloc]
             initWithCalendarIdentifier:NSGregorianCalendar];
     unsigned int unitFlags = NSDayCalendarUnit;
     NSDateComponents *comps = [calendar components:unitFlags fromDate:startDate toDate:endDate options:0];
     //    int months = [comps month];
-    int days = [comps day];
+    NSUInteger days = [comps day];
     return days;
 }
 

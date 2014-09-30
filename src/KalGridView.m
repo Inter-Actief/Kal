@@ -73,8 +73,8 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
         currentTile.state = KalTileStateLeftEnd;
     }
     
-    int dayCount = [NSDate dayBetweenStartDate:realBeginDate endDate:realEndDate];
-    for (int i=1; i<dayCount; i++) {
+    NSUInteger dayCount = [NSDate dayBetweenStartDate:realBeginDate endDate:realEndDate];
+    for (NSUInteger i=1; i<dayCount; i++) {
         NSDate *nextDay = [realBeginDate offsetDay:i];
         KalTileView *nextTile = [frontMonthView tileForDate:nextDay];
         if (nextTile) {
@@ -151,7 +151,7 @@ static NSString *kSlideAnimationId = @"KalSwitchMonths";
             return;
         
         NSDate *date = tile.date;
-        if ([date isEqualToDate:self.beginDate]) {
+        if ([date isEqualToDate:self.beginDate] && _endDate != nil) {
             date = self.beginDate;
             _beginDate = _endDate;
             _endDate = date;

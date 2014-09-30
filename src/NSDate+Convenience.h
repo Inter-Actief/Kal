@@ -10,17 +10,17 @@
 
 @interface NSDate (Convenience)
 
-- (int)year;
-- (int)month;
-- (int)day;
-- (int)hour;
+- (NSUInteger)year;
+- (NSUInteger)month;
+- (NSUInteger)day;
+- (NSUInteger)hour;
 - (NSString *)weekString;
-- (NSDate *)offsetDay:(int)numDays;
+- (NSDate *)offsetDay:(NSUInteger)numDays;
 - (BOOL)isToday;
 
-+ (NSDate *)dateForDay:(unsigned int)day month:(unsigned int)month year:(unsigned int)year;
++ (NSDate *)dateForDay:(NSUInteger)day month:(NSUInteger)month year:(NSUInteger)year;
 + (NSDate *)dateStartOfDay:(NSDate *)date;
-+ (int)dayBetweenStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
++ (NSUInteger)dayBetweenStartDate:(NSDate *)startDate endDate:(NSDate *)endDate;
 + (NSDate *)dateFromString:(NSString *)dateString format:(NSString *)format;
 + (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format;
 + (NSDate *)dateFromString:(NSString *)dateString;

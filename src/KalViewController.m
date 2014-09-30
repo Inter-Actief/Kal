@@ -41,7 +41,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 
 - (void)setSelectedDate:(NSDate *)selectedDate
 {
-    _selectedDate = selectedDate;
+    _selectedDate = [selectedDate cc_dateByMovingToBeginningOfDay];
     self.calendarView.gridView.beginDate = _selectedDate;
     [self showAndSelectDate:_selectedDate];
 }
@@ -176,9 +176,9 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
     NSArray *markedDates = [theDataSource markedDatesFrom:logic.fromDate to:logic.toDate];
     NSMutableArray *dates = [markedDates mutableCopy];
     for (int i=0; i<[dates count]; i++)
-        [dates replaceObjectAtIndex:i withObject:[dates objectAtIndex:i]];
-    
+        [dates replaceObjectAtIndex:i withObject:[[dates objectAtIndex:i] cc_dateByMovingToBeginningOfDay]];
     [[self calendarView] markTilesForDates:dates];
+    [self didSelectDate:self.selectedDate];
 }
 
 // ---------------------------------------
@@ -234,6 +234,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
 {
     [super viewWillAppear:animated];
     [tableView reloadData];
+    /*
     if ([self.navigationController.navigationBar respondsToSelector:@selector(setBarTintColor:)]) {
         self.navigationController.navigationBar.barTintColor = [UIColor blackColor];
         self.navigationController.navigationBar.tintColor = [UIColor orangeColor];
@@ -241,7 +242,7 @@ NSString *const KalDataSourceChangedNotification = @"KalDataSourceChangedNotific
         self.navigationController.navigationBar.tintColor = [UIColor blackColor];
     }
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : kLightGrayColor, NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:20]};
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];*/
 }
 
 - (void)viewDidAppear:(BOOL)animated

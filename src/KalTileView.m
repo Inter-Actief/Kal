@@ -42,10 +42,6 @@ extern const CGSize kTileSize;
     } else {
         textColor = kDarkGrayColor;
     }
-    if (self.isMarked) {
-        UIImage *markerImage = [UIImage imageNamed:@"Kal.bundle/kal_marker.png"];
-        [markerImage drawInRect:CGRectMake(21.f, 5.f, 4.f, 5.f)];
-    }
     
     if (self.state == KalTileStateHighlighted || self.state == KalTileStateSelected) {
         UIImage *image = [UIImage imageNamed:@"Kal.bundle/kal_tile_selected.png"];
@@ -85,10 +81,13 @@ extern const CGSize kTileSize;
         [image drawInRect:frame];
     }
     
+    if (self.isMarked) {
+        UIImage *markerImage = [UIImage imageNamed:@"Kal.bundle/kal_marker.png"];
+        [markerImage drawInRect:CGRectMake(21.f, 32.f, 4.f, 5.f)];
+    }
+    
     NSUInteger n = [self.date day];
     NSString *dayText = [NSString stringWithFormat:@"%lu", (unsigned long)n];
-    if (self.isToday)
-        dayText = NSLocalizedString(@"Today", @"");
     CGSize textSize = [dayText sizeWithFont:font];
     CGFloat textX, textY;
     textX = roundf(0.5f * (kTileSize.width - textSize.width));
@@ -141,6 +140,12 @@ extern const CGSize kTileSize;
 - (BOOL)isLast { return self.type & KalTileTypeLast; }
 - (BOOL)isDisable { return self.type & KalTileTypeDisable; }
 - (BOOL)isMarked { return self.type & KalTileTypeMarked; }
+
+- (void)setMarked:(BOOL)state {
+        self.type = self.type | KalTileTypeMarked;
+    if(!state)
+        self.type = self.type ^ KalTileTypeMarked;
+}
 
 - (BOOL)belongsToAdjacentMonth { return self.type & KalTileTypeAdjacent; }
 
